@@ -1,0 +1,14 @@
+{% regroup events_list by category.title as events_list_by_category %}
+{% for category in events_list_by_category %}
+    <hr>
+    <h2>{{ category.grouper }}</h2>
+    {% regroup category.list by start_date.month as events_list_by_month %}
+    {% for month in events_list_by_month %}
+        <h3>{{ month.grouper }}</h3>
+        {% for event in month.list %}
+            <h4>{{ event.title }}</h4>
+            <p>{{ event.start_date }}</p>
+            <p>{{ event.category.title }}</p>
+        {% endfor %}
+    {% endfor %}
+{% endfor %}

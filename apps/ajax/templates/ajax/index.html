@@ -1,0 +1,41 @@
+{% extends 'ajax/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Ejemplo con AJAX</h1>
+
+<p>
+    <a href="{% url 'signup' %}">AJAX con formulario</a>
+</p>
+
+<p>
+    <a href="#" id="ajaxButton"
+       data-url="{% url 'pass_username' %}"
+       data-id="admin">
+        AJAX sin formulario
+    </a>
+</p>
+
+<!-- to fill out from AJAX response -->
+<div id="something"></div>
+{% endblock content %}
+
+
+{% block javascript %}
+    <script>
+        $("#ajaxButton").click(function() {
+            data_id = $(this).data('id')
+            data_url = $(this).data('url')
+
+            $.ajax({
+                url: data_url,
+                data: {
+                    'username': data_id
+                },
+                success: function (data) {
+                    alert(data.message);
+                }
+            });
+        });
+    </script>
+{% endblock %}

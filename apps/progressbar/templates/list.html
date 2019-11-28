@@ -1,0 +1,44 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <!-- to trigger the call -->
+        <button id="42" onclick="getStuff(elem)">Get Stuff</button>
+
+        <!-- to fill out from AJAX response -->
+        <div id="something">
+            response: {{elem}}
+        </div>
+
+        <p>
+            <a href="#" onclick="getStuff()">OnClick()</a>
+        </p>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            function getStuff(elem) {
+                const id = $(elem).attr('id');
+
+                // alert(window.location.pathname + 'stuff/1');
+                data_url = "{% url 'stuff' 1 %}";
+                alert('ok');
+
+                $.ajax({
+                    url: data_url,
+                    type: 'GET',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#something').prepend("<p>" + result.item + "</p>");
+                    }
+                });
+            };
+        </script>
+
+    </body>
+</html>

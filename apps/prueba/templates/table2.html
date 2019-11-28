@@ -1,0 +1,31 @@
+{{object_list}}
+
+{% for a in object_list %}
+    <p>{{ a }} ({{ a.provincia_set.count }})</p>
+
+    {% for b in a.provincia_set.all %}
+        <p>&emsp;{{ b }} ({{ b.localidad_set.count }})</p>
+
+        {% for c in b.localidad_set.all %}
+            <p>&emsp;&emsp;{{ c }}</p>
+        {% endfor %}
+
+    {% endfor %}
+
+{% endfor %}
+
+<hr>
+
+<table>
+    {% for a in object_list %}
+    <tr><gr></gr>
+        <td>{{ a }}</td>
+        {% for b in a.provincia_set.all %}
+            <td>{{ b }}</td>
+            {% for c in b.localidad_set.all %}
+                <td>{{ c }}</td>
+            {% endfor %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>

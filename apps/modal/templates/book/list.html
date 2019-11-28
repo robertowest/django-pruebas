@@ -1,0 +1,123 @@
+{% extends 'modal/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- modal -->
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content-dbmf"></div>
+        </div>
+    </div>
+
+    <!-- contenido principal -->
+    <div class="container">
+        <div class="row">
+            <section class="col-lg-12">
+                <h1>Django Bootstrap Modal Forms</h1>
+
+                <!-- boton para crear un nuevo libro -->
+                <button class="create-book btn btn-primary" type="button" name="button">Nuevo libro</button>
+
+                <!-- tabla de libros -->
+                <div class="col-auto mb-3">
+                    <br>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Titulo</th>
+                                <th>Autor</th>
+                                <th>Tipo</th>
+                                <th>Fecha Pub.</th>
+                                <th>Páginas</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for book in books %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.get_book_type_display }}</td>
+                                <td>{{ book.publication_date }}</td>
+                                <td>{{ book.pages }}</td>
+                                <td>{{ book.price }}</td>
+                                <td>
+                                    <button type="button" class="read-book btn btn-sm btn-primary" data-id="{% url 'modal:read_book' book.pk %}">
+                                        <span class="fa fa-eye"></span>
+                                    </button>
+                                    <button type="button" class="update-book btn btn-sm btn-primary" data-id="{% url 'modal:update_book' book.pk %}">
+                                        <span class="fa fa-pencil"></span>
+                                    </button>
+                                    <button type="button" class="delete-book btn btn-sm btn-danger" data-id="{% url 'modal:delete_book' book.pk %}">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block jscript %}
+    <!-- JS necesarios para que funcione #modal -->
+    <script src="{% static '/modal/js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            // create book button
+            $(".create-book").modalForm({
+                formURL: "{% url 'modal:create_book' %}",
+                modalContent: ".modal-content-dbmf",
+                modalForm: ".modal-content-dbmf form"
+            });
+
+            // update book buttons
+            $(".update-book").each(function() {
+                $(this).modalForm({
+                    formURL: $(this).data('id'),
+                    modalContent: ".modal-content-dbmf",
+                    modalForm: ".modal-content-dbmf form"
+                });
+            });
+
+            // read book buttons
+            $(".read-book").each(function() {
+                $(this).modalForm({
+                    formURL: $(this).data('id'),
+                    modalContent: ".modal-content-dbmf",
+                    modalForm: ".modal-content-dbmf form"
+                });
+            });
+
+            // delete book buttons
+            $(".delete-book").each(function() {
+                $(this).modalForm({
+                    formURL: $(this).data('id'),
+                    modalContent: ".modal-content-dbmf",
+                    modalForm: ".modal-content-dbmf form"
+                });
+            });
+
+            // hide message
+            $(".alert").fadeTo(2000, 500).slideUp(500, function() {
+                $(".alert").slideUp(500);
+            });
+
+            // autofocus to first input field of a modal
+            $('.modal').on('shown.bs.modal', function() {
+                $('form').find('input[type=text]').filter(':visible:first').focus();
+            });
+        });
+    </script>
+{% endblock jscript %}

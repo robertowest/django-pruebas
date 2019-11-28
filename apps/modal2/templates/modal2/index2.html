@@ -1,0 +1,114 @@
+{% extends 'base_modal2.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <a class="btn btn-primary" data-toggle="modal" href="javascript:void(0)" onclick="openModal(1);">Ventana1</a>
+            <a class="btn btn-success" data-toggle="modal" href="javascript:void(0)" onclick="openModal(2);">Ventana2</a>
+            <a class="btn btn-warning" data-toggle="modal" href="javascript:void(0)" onclick="openModal(3);">Ventana3</a>
+        </div>
+    </div>
+
+    <!-- ventana modal -->
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog login animated">
+            <div class="modal-content">
+                {% block modal-header %}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Titulo de la ventana</h4>
+                </div>
+                {% endblock %}
+
+                <div class="modal-body">
+
+                    aqui ira todo el formulario
+
+                </div>
+
+                {% block modal-forget %}
+                <div class="modal-footer">
+                    <span>Pie del formulario</span>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+
+{% block jscript %}
+    <!-- JS necesarios para que funcione #modal -->
+    <script type="text/javascript">
+        function openModal(parametro){
+            if (parametro == 1) {
+                showWindowOne();
+            }
+            else if (parametro == 2) {
+                showWindowTwo();
+            }
+            
+            // setTimeout(function(){ $('#modal').modal('show'); }, 230);
+            $('#modal').modal('show');
+        }
+
+        function showWindowOne(){
+            $('#modal').fadeOut('fast', function(){
+                $('.modal-body').html('Parámetro: 1');
+            });
+            $('.error').removeClass('alert alert-danger').html('');
+        }
+
+        function showWindowTwo(){
+            $('#modal').fadeOut('fast', function(){
+                $('.modal-title').html('Ventana 2');
+                $('.modal-body').html('Parámetro: 2');
+                $('.modal-footer').html('<div class="login-footer"><span>¿No tienes <a href="javascript: openModal(1);">cuenta</a>?</span></div>');
+            });
+            $('.error').removeClass('alert alert-danger').html('');
+        }
+
+
+
+
+        function showLoginForm(){
+            $('#modal').fadeOut('fast',function(){
+                $('.loginBox').fadeIn('fast');
+                $('.register-footer').fadeOut('fast',function(){
+                    $('.login-footer').fadeIn('fast');
+                });
+                $('.modal-title').html('Iniciar con');
+            });
+            $('.error').removeClass('alert alert-danger').html('');
+        }    
+
+        function showRegisterForm(){
+            $('.loginBox').fadeOut('fast',function(){
+                $('.registerBox').fadeIn('fast');
+                $('.login-footer').fadeOut('fast',function(){
+                    $('.register-footer').fadeIn('fast');
+                });
+                $('.modal-title').html('Registrarse con');
+            });
+            $('.error').removeClass('alert alert-danger').html('');
+        }
+
+        function openLoginModal(){
+            // showLoginForm();
+            // setTimeout(function(){ $('#modal').modal('show'); }, 230);
+            $('#modal').modal('show');
+        }
+
+        function openRegisterModal(){
+            showRegisterForm();
+            setTimeout(function(){ $('#modal').modal('show'); }, 1000);
+        }
+
+    </script>
+
+
+{% endblock jscript %}

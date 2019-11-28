@@ -1,0 +1,35 @@
+{% extends 'ajax/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Comprueba si el nombre del usuario ya existe</h1>
+
+    <form method="post" data-validate-username-url="{% url 'validate_username' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Regístrate</button>
+    </form>
+{% endblock %}
+
+{% block javascript %}
+    {# no puedo tener el js en un archivo externo porque estoy utilizando {% static %} #}
+    <script>
+        $("#id_username").change(function () {
+            var username = $(this).val();
+
+            $.ajax({
+                url: '{% url "validate_username" %}',
+                data: {
+                    'username': username
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        alert(data.error_message);
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% load static %}
+{% load custom_tags %}
+
+<html>
+	<head></head>
+	<body>
+		<h1>Página con variable</h1>
+
+		{% with "tabla dinamica" as name %}
+			<div>
+				<a href="{% url 'tabla_dinamica' %}">{{name}}</a>
+			</div>
+
+			{% update_variable "tabla rowspan" as name %}
+			<div>
+				<a href="{% url 'autotabla' %}">{{name}}</a>
+			</div>
+		{% endwith %}
+
+	</body>
+</html>

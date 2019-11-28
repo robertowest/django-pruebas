@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Modal2</title>
+
+        <!-- sytlesheets -->
+        <link rel="stylesheet" href="{% static 'modal2/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'modal2/css/font-awesome.css' %}">
+        <!-- custom sytlesheets -->
+        <link rel="stylesheet" href="{% static '/modal/css/theme.css' %}">
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/png" href="{% static '/favicon.png' %}"/>
+    </head>
+    <body>
+        {% block content %}
+        {% endblock content %}
+
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="{% static '/modal2/js/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static '/modal2/js/popper.min.js' %}"></script>
+        <script src="{% static '/modal2/js/bootstrap.min.js' %}"></script>
+
+        {% block jscript %}
+        {% endblock jscript %}
+    </body>
+</html>

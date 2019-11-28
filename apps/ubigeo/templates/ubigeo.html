@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+{% load static %}
+<html lang="en">
+<head>
+    <title>{% block title %}Ubigeo{% endblock %}</title>
+</head>
+<body>
+    <script language="JavaScript" src ="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+    <script language="JavaScript" src ="{% static 'js/formulario.js %}"></script>
+
+
+    <div id="contenedor">
+        {% block contenido %}
+
+          <div class="fieldWrapper" id="field_region">
+              {{ form.region.label_tag }}
+              {{ form.region }}
+          </div>     
+
+
+          <div class="fieldWrapper" id="field_provincia">
+              {{ form.provincia.label_tag }}
+              {{ form.provincia }}
+          </div>
+
+          <div class="fieldWrapper" id="field_distrito">
+              {{ form.distrito.label_tag }}
+              {{ form.distrito }}
+          </div>
+        {% endblock %}
+    </div>
+
+</body>
+</html>

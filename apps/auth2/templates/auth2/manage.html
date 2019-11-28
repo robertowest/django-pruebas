@@ -1,0 +1,20 @@
+{% extends 'auth2/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container pt-5">
+        <h1>Inicio de sesión con cuenta de Google</h1>
+
+        {% if user.is_authenticated %}
+            <hr>
+            <p>Usted a iniciado sesión como {{ user.email }}</p>
+            <p>Perfil: {{ user.profile }}</p>
+            <a class="btn btn-primary mt-5" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <img id="signInButton" src="http://www.setyourowntests.com/_/rsrc/1468869481521/help/accounts/btn_google_signin_dark_normal_web%402x.png" onclick="document.getElementById('signInButton').src='http://www.setyourowntests.com/_/rsrc/1468869481521/help/accounts/btn_google_signin_dark_normal_web%402x.png'">
+            <hr>
+            <p>No ha iniciado sesión</p>
+            <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">Login</a>
+        {% endif %}
+    </div>
+{% endblock content %}
