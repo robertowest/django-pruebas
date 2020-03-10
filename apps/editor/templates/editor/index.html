@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CkEditor</title>
+    <!--
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor.js" %}"></script>    
+    -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="/static/base/js/main.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <p>Hay dos tipos de campos que utilizar CkEditor: RichTextField y RichTextUploadingField.</p>
+    <p><b>RichTextField</b> agrega un editor de texto enriquecido sin cargador de imágenes</p>
+    <p><b>RichTextUploadingField</b> agrega un editor de texto enriquecido con cargador de imágenes</p>
+    <p>Para usarlo, reemplazamos models.TextField() por RichTextField o RichTextUploadingField</p>
+
+    <p><a href="{% url 'add_post' %}">Nuevo</a></p>
+
+    <table style="width: 100%">
+        <tr style="background-color: burlywood;">
+            <th>#</th>
+            <th>Content</th>
+            <th>Content2</th>
+        </tr>
+        {% for post in object_list %}
+        <tr>
+            <td style="width: 5%">
+                <a href="{% url 'edit_post' post.id %}">{{post.id}}</a>
+            </td>
+            <td style="width: 40%">
+                {{ post.content | safe }}
+            </td>
+            <td style="width: 40%">
+                {{ post.content2 | safe }}
+            </td>    
+        </tr>
+        {% endfor %}    
+    </table>
+
+</body>
+</html>

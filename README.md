@@ -2,6 +2,16 @@ django-pruebas
 ==============
 
 Pruebas realizadas en django para practicar o para depurar aplicaciones antes de agregarlas a un proyecto productivo.
+Tiene varias aplicaciones de pruebas o desarrollo
+    * accounts/
+    * ajax/
+    * books/
+    * crispy/
+    * encadenado/   (drill-down)
+    * modal/
+    * progressbar/
+    * ubigeo/
+    * uploadFiles/
 
 
 ## Requerimientos

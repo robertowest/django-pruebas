@@ -1,1 +1,5 @@
-django==2.2.4
+django
+django_extensions
+debug_toolbar
+django-ckeditor
+pillow

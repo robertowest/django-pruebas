@@ -39,6 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# solo en modo de depuración
+if DEBUG:
+    INSTALLED_APPS += [
+        'django_extensions',
+        'debug_toolbar',
+    ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -49,12 +56,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# solo en modo de depuración
+if DEBUG:
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,6 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -135,14 +149,114 @@ INSTALLED_APPS += [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'     # crispy_forms
 
+# google auth2
+from .auth2_google import *
+
+
+LOGIN_REDIRECT_URL = '/accounts/'
+LOGOUT_REDIRECT_URL = '/accounts/'
+
+# solo en modo de depuración
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+
+# --------------------------------------------------------------------------------------
+# CkEditor
+# --------------------------------------------------------------------------------------
+INSTALLED_APPS += ['ckeditor', 'ckeditor_uploader',]
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'height': 300,
+        'width': 500,
+        'tabSpaces': 4,
+        'language': 'es',
+        'uiColor': '#AADC6E',
+    },
+    'special': {
+        'toolbar': 'Special', 'toolbar_Special': [
+                ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates'],
+        ], 
+        'width': 500,
+    },
+    'toolbar_YourCustomToolbarConfig': [
+            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'forms',
+             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                       'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                       'Language']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert',
+             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+            '/',
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+            {'name': 'about', 'items': ['About']},
+            '/',  # put this to force next toolbar on new line
+            {'name': 'yourcustomtools', 'items': [
+                # put the name of your editor.ui.addButton here
+                'Preview',
+                'Maximize',]
+            },
+    ],    
+}
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         # 'toolbar': None,
+#         'toolbar': 'Custom', 'toolbar_Custom':
+#             [
+#                 ['Bold', 'Link', 'Unlink', 'Image'], 
+#             ], 
+#     },
+#     'default':
+#         {'toolbar': 'Custom',
+#          'toolbar_Custom': [
+#              ['Bold', 'Link', 'Unlink', 'Image'],
+#          ],
+#     },
+#     'special': 
+#         {'toolbar': 'Special', 
+#          'toolbar_Special': 
+#              [
+#                  ['Bold'], 
+#              ], 
+#          }    
+# }
+
+# CKEDITOR_BASEPATH = os.path.join(BASE_DIR, 'static', 'ckeditor')
+# CKEDITOR_RESTRICT_BY_USER = True
+
+
+
+# --------------------------------------------------------------------------------------
 # mis aplicaciones
+# --------------------------------------------------------------------------------------
 INSTALLED_APPS += [
+    'apps.accounts',
     'apps.ajax',
-    'apps.auth2',
+    # 'apps.auth2',
     # 'apps.auth2_google',
     'apps.books',
     'apps.crispy',
     'apps.domicilio',
+    'apps.editor',
     'apps.modal',
     'apps.modal2',
     'apps.progressbar',
@@ -150,6 +264,3 @@ INSTALLED_APPS += [
     'apps.ubigeo',
     'apps.uploadFiles',
 ]
-
-# google auth2
-from .auth2_google import *

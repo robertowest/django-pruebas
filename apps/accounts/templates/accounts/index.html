@@ -1,0 +1,59 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Inicio de sesión</h1>
+    <hr>
+
+    {% if user.is_authenticated %}
+        <p>Bienvenido {{ user.email }}</p>
+        <br>
+        <a href="/accounts/logout/" class="btn btn-danger">Logout</a>
+    {% else %}
+        <p>No ha iniciado sesión</p>
+        <br>
+        <a href="/accounts/login/" class="btn btn-primary">Login</a>
+    {% endif %}
+
+
+    <hr>
+    <p><a href="/accounts/signup/">Registrarse</a></p>
+    <p><a href="/accounts/password_change/">Cambiar contraseña</a></p>
+    <p><a href="/accounts/password_reset/">Resetear contraseña</a></p>
+
+    <hr>
+    <p>Iniciar sesión con cuenta de <a href="{% url 'social:begin' 'google-oauth2' %}">Google</a></p>
+
+{% endblock content %}
+
+
+
+
+{% comment %}
+
+
+    accounts/ login/ [name='login']
+    accounts/ logout/ [name='logout']
+    accounts/ password_change/ [name='password_change']
+    accounts/ password_change/done/ [name='password_change_done']
+    accounts/ password_reset/ [name='password_reset']
+    accounts/ password_reset/done/ [name='password_reset_done']
+    accounts/ reset/<uidb64>/<token>/ [name='password_reset_confirm']
+    accounts/ reset/done/ [name='password_reset_complete']
+    accounts/ signup/ [name='signup']
+
+
+
+    {% if user.is_authenticated %}
+        <hr>
+        <p>Usted a iniciado sesión como {{ user.email }}</p>
+        <p>Perfil: {{ user.profile }}</p>
+        <a class="btn btn-primary mt-5" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <img id="signInButton" src="http://www.setyourowntests.com/_/rsrc/1468869481521/help/accounts/btn_google_signin_dark_normal_web%402x.png" onclick="document.getElementById('signInButton').src='http://www.setyourowntests.com/_/rsrc/1468869481521/help/accounts/btn_google_signin_dark_normal_web%402x.png'">
+        <hr>
+        <p>No ha iniciado sesión</p>
+        <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">Login</a>
+    {% endif %}
+
+{% endcomment %}

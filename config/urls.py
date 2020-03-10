@@ -16,22 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from . import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='inicio'),
+    
+    # path('accounts/',     include('apps.accounts.urls')),    
 
-    # path('account/', include('social_django.urls', namespace='social')),
-    # path('account/', include('django.contrib.auth.urls', namespace='auth')),
+    # path('ajax/',         include('apps.ajax.urls')),
+    # path('domicilio/',    include('apps.domicilio.urls')),
+    path('ckeditor/',     include('apps.editor.urls')),
+    # path('pruebas/',      include('apps.prueba.urls')),
+    # # path('ubigeo/',     include('apps.ubigeo.urls')),
+    # path('modal/',        include('apps.modal.urls')),
+    # path('modal2/',       include('apps.modal2.urls')),
+    # path('books/',        include('apps.books.urls')),
+    # path('crispy/',       include('apps.crispy.urls')),
+    # path('progressbar/',  include('apps.progressbar.urls')),
+    # path('uploadFiles/',  include('apps.uploadFiles.urls')),
+] 
 
-    path('ajax/',         include('apps.ajax.urls')),
-    path('auth2/',        include('apps.auth2.urls')),
-    # path('auth2/',        include('apps.auth2_google.urls', namespace='auth2')),
-    path('domicilio/',    include('apps.domicilio.urls')),
-    path('pruebas/',      include('apps.prueba.urls')),
-    # path('ubigeo/',     include('apps.ubigeo.urls')),
-    path('modal/',        include('apps.modal.urls')),
-    path('modal2/',       include('apps.modal2.urls')),
-    path('books/',        include('apps.books.urls')),
-    path('crispy/',       include('apps.crispy.urls')),
-    path('progressbar/',  include('apps.progressbar.urls')),
-    path('uploadFiles/',  include('apps.uploadFiles.urls')),
-]
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
