@@ -18,7 +18,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.profile',
 ]
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '976118530876-u88nsjj3elpht46v9kj3gr433ocvqbkp.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '4ztiZkkM3nSi52UygrsxfOdD'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '...'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '...'
 
 LOGIN_URL = '/accounts/login/google/'
