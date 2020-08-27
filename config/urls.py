@@ -21,20 +21,22 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='inicio'),
-    
-    # path('accounts/',     include('apps.accounts.urls')),    
+
+    # path('accounts/',     include('apps.accounts.urls')),
 
     # path('ajax/',         include('apps.ajax.urls')),
     # path('domicilio/',    include('apps.domicilio.urls')),
-    path('ckeditor/',     include('apps.editor.urls')),
+    # path('ckeditor/',     include('apps.editor.urls')),
     # path('pruebas/',      include('apps.prueba.urls')),
     # # path('ubigeo/',     include('apps.ubigeo.urls')),
-    # path('modal/',        include('apps.modal.urls')),
-    # path('modal2/',       include('apps.modal2.urls')),
+    path('modal/',        include('apps.modal.urls')),
+    path('modal2/',       include('apps.modal2.urls')),
     # path('books/',        include('apps.books.urls')),
     # path('crispy/',       include('apps.crispy.urls')),
     # path('progressbar/',  include('apps.progressbar.urls')),
     # path('uploadFiles/',  include('apps.uploadFiles.urls')),
-] 
+
+    path('table2/', include('apps.table2.urls')),
+]
 
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

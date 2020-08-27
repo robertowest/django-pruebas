@@ -145,6 +145,8 @@ INSTALLED_APPS += [
     'widget_tweaks',            # modal
     'crispy_forms',
     'mathfilters',
+    'django_tables2',
+    'django_filters',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'     # crispy_forms
@@ -261,6 +263,7 @@ INSTALLED_APPS += [
     'apps.modal2',
     'apps.progressbar',
     'apps.prueba',
+    'apps.table2',
     'apps.ubigeo',
     'apps.uploadFiles',
 ]

@@ -11,3 +11,4 @@ class TemplateView(TemplateView):
         # do something with your data
         context = {}  #  set your context
         return super(TemplateView, self).render_to_response(context)
+
